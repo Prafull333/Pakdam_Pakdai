@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -13,16 +14,23 @@ public class Player : MonoBehaviour
     public GameObject raiderSignal;
     public bool isRaider;
 
-    // Start is called before the first frame update
-    void Start()
+    public string nameString;
+
+
+    private void OnEnable()
     {
         left_Hand = GetComponent<Animator>().GetBoneTransform(HumanBodyBones.LeftHand).gameObject;
         right_Hand = GetComponent<Animator>().GetBoneTransform(HumanBodyBones.RightHand).gameObject;
-        GameManager.Instance.Players.Add(this.gameObject);
 
         createRaiderEvent.AddListener(() => createRaider());
         createRaiderEvent.AddListener(() => GameManager.Instance.clapCrowd());
         looseRaiderEvent.AddListener(() => looseRaider());
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+     
     }
 
     // Update is called once per frame
@@ -34,20 +42,17 @@ public class Player : MonoBehaviour
 
     public void createRaider()
     {
+        
         isRaider = true;
-        if(raiderSignal != null)
-        {
-            raiderSignal.SetActive(true);
-        }
+        raiderSignal.SetActive(true);
+        GameManager.Instance.raiderText.text = $"Raider :- {nameString}";
+        GameManager.Instance.raiderPlayer = this.gameObject;
     }
 
     public void looseRaider()
     {
         isRaider = false;
-        if (raiderSignal != null)
-        {
-            raiderSignal.SetActive(false);
-        }
+        raiderSignal.SetActive(false);
     }
     
 

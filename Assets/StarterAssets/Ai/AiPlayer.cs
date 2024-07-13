@@ -4,6 +4,7 @@ using UnityEngine;
 using StarterAssets;
 using UnityEngine.InputSystem;
 using Unity.VisualScripting;
+using TMPro;
 
 [RequireComponent(typeof(Player))]
 public class AiPlayer : ThirdPersonController
@@ -24,12 +25,10 @@ public class AiPlayer : ThirdPersonController
         _hasAnimator = TryGetComponent(out _animator);
         _controller = GetComponent<CharacterController>();
 
-//        AssignAnimationIDs();
+          GetComponent<Player>().nameString = GameManager.Instance.data.
+            defaultName[Random.Range(0, GameManager.Instance.data.defaultName.Length)].ToString();
 
-        // reset our timeouts on start
-      //  _jumpTimeoutDelta = JumpTimeout;
-      //  _fallTimeoutDelta = FallTimeout;
-
+        GetComponentInChildren<TextMeshPro>().text = GetComponent<Player>().nameString;
         changeTargetLocation();
     }
 
@@ -37,14 +36,16 @@ public class AiPlayer : ThirdPersonController
     {
         targetDestance = GetTargetDistance();
         Move();
+
+        if (GetComponent<Player>().isRaider)
+        {
+            IamRaider();
+        }
     }
 
     internal override void LateUpdate()
     {
-        if(GetComponent<Player>().isRaider)
-        {
-            IamRaider();
-        }
+      
     }
 
     void changeTargetLocation()

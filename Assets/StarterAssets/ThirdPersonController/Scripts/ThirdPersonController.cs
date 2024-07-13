@@ -1,4 +1,5 @@
-﻿ using UnityEngine;
+﻿using TMPro;
+using UnityEngine;
 #if ENABLE_INPUT_SYSTEM 
 using UnityEngine.InputSystem;
 #endif
@@ -62,6 +63,7 @@ namespace StarterAssets
         [Header("Cinemachine")]
         [Tooltip("The follow target set in the Cinemachine Virtual Camera that the camera will follow")]
         public GameObject CinemachineCameraTarget;
+        public GameObject CinemachineCameraLookAt;
 
         [Tooltip("How far in degrees can you move the camera up")]
         public float TopClamp = 70.0f;
@@ -156,6 +158,8 @@ namespace StarterAssets
             {
                 this.gameObject.AddComponent<PlayerInput>();
             }
+
+            GetComponentInChildren<TextMeshPro>().text = GameManager.Instance.data.playerName.ToString();
         }
 
         virtual internal void Update()

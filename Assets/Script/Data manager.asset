@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e89ea35423c18994c9fcdec70f2d3f54, type: 3}
+  m_Name: Data manager
+  m_EditorClassIdentifier: 
+  playerName: Prafull
+  defaultName:
+  - Aanya
+  - Aaradhya
+  - Aarohi
+  - Aakil
+  - Aaryan
+  - Arjun
+  - Bhavana
+  - Charvi
+  - Dia
+  - Dhruv
+  - Ishaan
+  - Kabir
+  - Ela
+  - Ganga
+  - Gauri
+  - Neel
+  - Shlok
+  - Tanay
+  aiPlayer:
+  - {fileID: 6131588863586876454, guid: 7298a11d18532134f983697bdaaa06ee, type: 3}
+  - {fileID: 3224032185609254537, guid: dd58eb07535a0e945b23761ef48d2ef4, type: 3}
+  crowdPeople:
+  - {fileID: 9088722324606736255, guid: fec213435678b094a8a4d9721095bef8, type: 3}
+  - {fileID: 6938900950812137587, guid: 3b2a56a802c77f04192b66be6de05504, type: 3}
+  - {fileID: 3522622541372849707, guid: cbebe63f61fa41545b486cb05c5f7c61, type: 3}
+  - {fileID: 5320231575879544776, guid: 105f328ea52c8294b9545f449ab8abe9, type: 3}
+  - {fileID: 3893118706732167682, guid: 5f09fa1c55d1fe349bc109159776ed7e, type: 3}
+  - {fileID: 3186872255082617499, guid: c53852980cc64ea4aba419ffe00b6573, type: 3}
+  - {fileID: 5210336901236130582, guid: fe2433d3143d4014fbaf9b0b0b11dd69, type: 3}
+  - {fileID: 3820652268887423294, guid: ce305a02989ffc6438023469811cb01b, type: 3}
+  - {fileID: 3247839820084901096, guid: 38d8c1565019ebb48a4718c12387565f, type: 3}
+  playerChar: {fileID: 4956868893208705509, guid: 0c2563f76b8591549b15c94b2b62d200, type: 3}
