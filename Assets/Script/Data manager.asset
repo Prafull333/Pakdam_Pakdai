@@ -32,6 +32,19 @@ MonoBehaviour:
   - Neel
   - Shlok
   - Tanay
+  - Aakshya
+  - Aaloka
+  - Aaria
+  - Abi
+  - Bhaanu
+  - Bhavya
+  - Chaaru
+  - Deepu
+  - Chanchal
+  - Chitra
+  - Devasri
+  - Dhanshree
+  - Gulab
   aiPlayer:
   - {fileID: 6131588863586876454, guid: 7298a11d18532134f983697bdaaa06ee, type: 3}
   - {fileID: 3224032185609254537, guid: dd58eb07535a0e945b23761ef48d2ef4, type: 3}
@@ -46,3 +59,4 @@ MonoBehaviour:
   - {fileID: 3820652268887423294, guid: ce305a02989ffc6438023469811cb01b, type: 3}
   - {fileID: 3247839820084901096, guid: 38d8c1565019ebb48a4718c12387565f, type: 3}
   playerChar: {fileID: 4956868893208705509, guid: 0c2563f76b8591549b15c94b2b62d200, type: 3}
+  selectedSceneIndex: 1

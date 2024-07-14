@@ -25,9 +25,6 @@ public class AiPlayer : ThirdPersonController
         _hasAnimator = TryGetComponent(out _animator);
         _controller = GetComponent<CharacterController>();
 
-          GetComponent<Player>().nameString = GameManager.Instance.data.
-            defaultName[Random.Range(0, GameManager.Instance.data.defaultName.Length)].ToString();
-
         GetComponentInChildren<TextMeshPro>().text = GetComponent<Player>().nameString;
         changeTargetLocation();
     }
@@ -36,6 +33,11 @@ public class AiPlayer : ThirdPersonController
     {
         targetDestance = GetTargetDistance();
         Move();
+
+        if (GameManager.Instance.Players.Count < 3)
+        {
+            nearestPlayer = GameManager.Instance.Players[0];
+        }
 
         if (GetComponent<Player>().isRaider)
         {
@@ -125,31 +127,33 @@ public class AiPlayer : ThirdPersonController
 
     void IamRaider()
     {
-       for (int i = 0; i < GameManager.Instance.Players.Count; i++)
-        {
-            for (int j = 0; j < GameManager.Instance.Players.Count; j++)
+
+            for (int i = 0; i < GameManager.Instance.Players.Count; i++)
             {
-                if(i == j || GameManager.Instance.Players[j] == this.gameObject 
-                    || GameManager.Instance.Players[i] == this.gameObject)
-                { continue; }
-
-                float dis = Vector3.Distance(transform.position,
-                    GameManager.Instance.Players[j].transform.position);
-
-                if (nearestPlayer != null || nearestPlayerDistance < dis)
+                for (int j = 0; j < GameManager.Instance.Players.Count; j++)
                 {
-                    nearestPlayerDistance = Vector3.Distance(transform.position,
-                    nearestPlayer.transform.position);
-                }
+                    if (i == j || GameManager.Instance.Players[j] == this.gameObject
+                        || GameManager.Instance.Players[i] == this.gameObject)
+                    { continue; }
 
-                if(nearestPlayer == null || nearestPlayerDistance > dis)
-                {
-                    nearestPlayer = GameManager.Instance.Players[j];
-                    nearestPlayerDistance = dis;
-                }
+                    float dis = Vector3.Distance(transform.position,
+                        GameManager.Instance.Players[j].transform.position);
 
+                    if (nearestPlayer != null || nearestPlayerDistance < dis)
+                    {
+                        nearestPlayerDistance = Vector3.Distance(transform.position,
+                        nearestPlayer.transform.position);
+                    }
+
+                    if (nearestPlayer == null || nearestPlayerDistance > dis)
+                    {
+                        nearestPlayer = GameManager.Instance.Players[j];
+                        nearestPlayerDistance = dis;
+                    }
+
+                }
             }
-        }
+        
 
        targetLocation = nearestPlayer.transform.position;
     }

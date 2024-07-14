@@ -12,4 +12,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac3f50a7bf8921243a3d34c8f63ad404, type: 3}
   m_Name: Shop
   m_EditorClassIdentifier: 
-  playableObjects: []
+  allPlayerinShop:
+  - name: Mahindra
+    playablePlayer: {fileID: 4956868893208705509, guid: 0c2563f76b8591549b15c94b2b62d200, type: 3}
+    onlyShopPlayer: {fileID: 0}
+    price: 0
+  - name: Monali
+    playablePlayer: {fileID: 506551992059035231, guid: 481dbf9bba27cb94696403b7e1a7a63e, type: 3}
+    onlyShopPlayer: {fileID: 0}
+    price: 500
+  - name: Red Robot
+    playablePlayer: {fileID: 4465641835348435953, guid: 6994fd017ce1b5a4c95efcc758cfa0da, type: 3}
+    onlyShopPlayer: {fileID: 0}
+    price: 1500
+  - name: Chelsy
+    playablePlayer: {fileID: 2339160812848100599, guid: d2124e1c8f5fbbe4691a0cb05eabc9e9, type: 3}
+    onlyShopPlayer: {fileID: 0}
+    price: 4000
+  - name: Mikey
+    playablePlayer: {fileID: 646189331620703334, guid: 080b17204ff0bb047b133a807cad67fb, type: 3}
+    onlyShopPlayer: {fileID: 0}
+    price: 10000
+  - name: Disha
+    playablePlayer: {fileID: 7411963492570131946, guid: e47784d251cfa2c4dbe8e898b3ad1f84, type: 3}
+    onlyShopPlayer: {fileID: 0}
+    price: 20000
+  purchasedPlayer:
+  - name: Mahindra
+    playablePlayer: {fileID: 4956868893208705509, guid: 0c2563f76b8591549b15c94b2b62d200, type: 3}
+    onlyShopPlayer: {fileID: 0}
+    price: 0

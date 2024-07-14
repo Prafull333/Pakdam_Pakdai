@@ -27,12 +27,6 @@ public class Player : MonoBehaviour
         looseRaiderEvent.AddListener(() => looseRaider());
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-     
-    }
-
     // Update is called once per frame
     void Update()
     {
@@ -45,7 +39,10 @@ public class Player : MonoBehaviour
         
         isRaider = true;
         raiderSignal.SetActive(true);
-        GameManager.Instance.raiderText.text = $"Raider :- {nameString}";
+
+        Debug.Log(nameString);
+
+        GameManager.Instance.raiderText.text = $"Reider :- {nameString}";
         GameManager.Instance.raiderPlayer = this.gameObject;
     }
 
@@ -53,6 +50,12 @@ public class Player : MonoBehaviour
     {
         isRaider = false;
         raiderSignal.SetActive(false);
+
+        if(GetComponent<AiPlayer>())
+        {
+            GetComponent<AiPlayer>().nearestPlayer = null;
+            GetComponent<AiPlayer>().nearestPlayerDistance = Mathf.Infinity;
+        }
     }
     
 
@@ -65,7 +68,6 @@ public class Player : MonoBehaviour
         {
             if(c.gameObject != this.gameObject && isRaider && c.GetComponent<Player>())
             {
-                Debug.Log("Point");
                 c.GetComponent<Player>().createRaiderEvent.Invoke();
                 looseRaiderEvent.Invoke();
             }
