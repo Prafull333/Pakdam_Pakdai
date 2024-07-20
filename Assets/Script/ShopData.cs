@@ -9,6 +9,7 @@ public class ShopData : ScriptableObject
     public struct playerInShopData
     {
         public string name;
+        public string description;
         public GameObject playablePlayer;
         public GameObject onlyShopPlayer;
         public int price;
@@ -19,7 +20,18 @@ public class ShopData : ScriptableObject
 
     private void OnEnable()
     {
-        if(purchasedPlayer.Count == 0 && allPlayerinShop.Length > 0)
-        purchasedPlayer.Add(allPlayerinShop[0]);
+        if (purchasedPlayer.Count == 0 && allPlayerinShop.Length > 0)
+        {
+            purchasedPlayer.Add(allPlayerinShop[0]);
+            purchasedPlayer.Add(allPlayerinShop[1]);
+        }
+    }
+
+    public bool isPurchesedPlayer(playerInShopData p)
+    {
+        if (purchasedPlayer.Contains(p))
+            return true;
+
+        return false;
     }
 }

@@ -14,31 +14,52 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   allPlayerinShop:
   - name: Mahindra
+    description: A social worker helping underprivileged communities,  dedicated
+      to making a positive impact. Enjoys outdoor adventures, playing guitar, and
+      advocating for social justice.
     playablePlayer: {fileID: 4956868893208705509, guid: 0c2563f76b8591549b15c94b2b62d200, type: 3}
-    onlyShopPlayer: {fileID: 0}
+    onlyShopPlayer: {fileID: 1861026551591361761, guid: d3e5641b756894349a80cdb173265f7d, type: 3}
     price: 0
   - name: Monali
+    description: A fashion designer with a unique, edgy style, working to launch
+      their own clothing line. Loves sketching designs, attending fashion shows,
+      and collaborating with other designers.
     playablePlayer: {fileID: 506551992059035231, guid: 481dbf9bba27cb94696403b7e1a7a63e, type: 3}
-    onlyShopPlayer: {fileID: 0}
+    onlyShopPlayer: {fileID: 8235415078856844991, guid: 4ba2ebc1e0cee8e4e87d0ea3fb6a76c6, type: 3}
     price: 500
   - name: Red Robot
-    playablePlayer: {fileID: 4465641835348435953, guid: 6994fd017ce1b5a4c95efcc758cfa0da, type: 3}
-    onlyShopPlayer: {fileID: 0}
+    description: A sophisticated female android designed for advanced problem-solving
+      and human interaction. Programmed with empathy and intelligence, she assists
+      in various fields, from healthcare to education, always seeking to improve
+      human-robot relations.
+    playablePlayer: {fileID: 995323281211202508, guid: 78126efcd7c8903468ae46a2b1597af0, type: 3}
+    onlyShopPlayer: {fileID: 995323281211202508, guid: 78126efcd7c8903468ae46a2b1597af0, type: 3}
     price: 1500
   - name: Chelsy
+    description: A dedicated lawyer specializing in human rights, committed to fighting
+      for justice. Balances a demanding career with volunteering at legal aid clinics
+      and mentoring aspiring lawyers.
     playablePlayer: {fileID: 2339160812848100599, guid: d2124e1c8f5fbbe4691a0cb05eabc9e9, type: 3}
-    onlyShopPlayer: {fileID: 0}
+    onlyShopPlayer: {fileID: 787459549908347726, guid: ce8d6c7ab3ff55f42a7dcf8087c88175, type: 3}
     price: 4000
   - name: Mikey
+    description: An avid gamer and tech enthusiast, working as an IT support specialist.Enjoys
+      tinkering with gadgets and coding in their free time, always up for a challenge.
     playablePlayer: {fileID: 646189331620703334, guid: 080b17204ff0bb047b133a807cad67fb, type: 3}
-    onlyShopPlayer: {fileID: 0}
+    onlyShopPlayer: {fileID: 6130640228309137087, guid: 4a49a8fed7702354bb1cfe4868f8359e, type: 3}
     price: 10000
   - name: Disha
+    description: A rising actress known for her versatility and passion. Balances
+      theater and film roles, constantly honing her craft. Loves attending film festivals
+      and advocating for mental health awareness.
     playablePlayer: {fileID: 7411963492570131946, guid: e47784d251cfa2c4dbe8e898b3ad1f84, type: 3}
-    onlyShopPlayer: {fileID: 0}
+    onlyShopPlayer: {fileID: 7455218067632057872, guid: bc749bea1f47b16448d4f789d764a208, type: 3}
     price: 20000
   purchasedPlayer:
   - name: Mahindra
+    description: A social worker helping underprivileged communities,  dedicated
+      to making a positive impact. Enjoys outdoor adventures, playing guitar, and
+      advocating for social justice.
     playablePlayer: {fileID: 4956868893208705509, guid: 0c2563f76b8591549b15c94b2b62d200, type: 3}
-    onlyShopPlayer: {fileID: 0}
+    onlyShopPlayer: {fileID: 1861026551591361761, guid: d3e5641b756894349a80cdb173265f7d, type: 3}
     price: 0

@@ -15,6 +15,7 @@ public class DefaultData : ScriptableObject
     public GameObject[] crowdPeople;
 
     public GameObject playerChar;
+    public int avalableGaneshCoin = 0;
 
     public int selectedSceneIndex = 1;
 }

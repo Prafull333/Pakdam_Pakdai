@@ -1,3 +1,4 @@
+using StarterAssets;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -15,6 +16,8 @@ public class Player : MonoBehaviour
     public bool isRaider;
 
     public string nameString;
+
+    
 
 
     private void OnEnable()
@@ -36,11 +39,14 @@ public class Player : MonoBehaviour
 
     public void createRaider()
     {
+        if(GameManager.Instance.Players.Count == 1)
+        {
+            GetComponent<Animator>().SetBool("Win", true);
+            return;
+        }
         
         isRaider = true;
         raiderSignal.SetActive(true);
-
-        Debug.Log(nameString);
 
         GameManager.Instance.raiderText.text = $"Reider :- {nameString}";
         GameManager.Instance.raiderPlayer = this.gameObject;
@@ -73,5 +79,34 @@ public class Player : MonoBehaviour
             }
         }
 
+    }
+
+    private void OnDestroy()
+    {
+        if(GameManager.Instance.Players.Count == 2)
+        {
+            GameManager.Instance.setWinners(nameString, 3);
+            return;
+        }
+
+        if (GameManager.Instance.Players.Count == 1)
+        {
+            GameManager.Instance.setWinners(nameString, 2);
+            GameManager.Instance.setWinners(GameManager.Instance.Players[0]
+                .GetComponent<Player>().nameString, 1);
+            return;
+        }
+        
+        if(GameManager.Instance.playerFollowCamera.Follow == 
+            GetComponent<ThirdPersonController>().CinemachineCameraTarget.transform)
+        {
+            GameManager.Instance.setCameraforRandamPlayer();
+        }
+
+
+        if (!GetComponent<AiPlayer>() &&  GameManager.Instance.Players.Count != 1)
+        {
+           GameManager.Instance.eliminatedScreen.gameObject.SetActive(true);
+        }
     }
 }

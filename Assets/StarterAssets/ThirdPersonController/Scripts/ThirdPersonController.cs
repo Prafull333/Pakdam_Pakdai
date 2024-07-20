@@ -168,7 +168,15 @@ namespace StarterAssets
 
             JumpAndGravity();
             GroundedCheck();
-            Move();
+
+            if(SystemInfo.deviceType == DeviceType.Desktop)
+            {
+                Move();
+            }
+            else
+            {
+                mobileMove();
+            }
         }
 
         virtual internal void LateUpdate()
@@ -281,7 +289,7 @@ namespace StarterAssets
             Vector3 targetDirection = Quaternion.Euler(0.0f, _targetRotation, 0.0f) * Vector3.forward;
 
             // move the player
-            _controller.Move(targetDirection.normalized * (_speed * Time.deltaTime) +
+            _controller.Move(targetDirection.normalized * (_speed * 5 * Time.deltaTime) +
                              new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
 
             // update animator if using character
@@ -292,7 +300,74 @@ namespace StarterAssets
             }
         }
 
-        private void JumpAndGravity()
+
+        void mobileMove()
+        {
+            MobileInput m_input = GameManager.Instance.mobileScreen.GetComponent<MobileInput>();
+
+            // set target speed based on move speed, sprint speed and if sprint is pressed
+            float targetSpeed = m_input.runButton.isHovering ? SprintSpeed : MoveSpeed;
+
+            // if there is no input, set the target speed to 0
+            if (m_input.js.Direction == Vector2.zero) targetSpeed = 0.0f;
+
+            // a reference to the players current horizontal velocity
+            float currentHorizontalSpeed = new Vector3(_controller.velocity.x, 0.0f, _controller.velocity.z).magnitude;
+
+            float speedOffset = 0.1f;
+            float inputMagnitude = 1f;
+
+            // accelerate or decelerate to target speed
+            if (currentHorizontalSpeed < targetSpeed - speedOffset ||
+                currentHorizontalSpeed > targetSpeed + speedOffset)
+            {
+                _speed = Mathf.Lerp(currentHorizontalSpeed, targetSpeed * inputMagnitude,
+                    Time.deltaTime * SpeedChangeRate);
+
+                // round speed to 3 decimal places
+                _speed = Mathf.Round(_speed * 1000f) / 1000f;
+            }
+            else
+            {
+                _speed = targetSpeed;
+            }
+
+            _animationBlend = Mathf.Lerp(_animationBlend, targetSpeed, Time.deltaTime * SpeedChangeRate);
+            if (_animationBlend < 0.01f) _animationBlend = 0f;
+
+            // normalise input direction
+            Vector3 inputDirection = 
+                new Vector3(m_input.js.Direction.x, 0.0f, m_input.js.Direction.y).normalized;
+
+            // note: Vector2's != operator uses approximation so is not floating point error prone, and is cheaper than magnitude
+            // if there is a move input rotate player when the player is moving
+            if (m_input.js.Direction != Vector2.zero)
+            {
+                _targetRotation = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg +
+                                  _mainCamera.transform.eulerAngles.y;
+                float rotation = Mathf.SmoothDampAngle(transform.eulerAngles.y, _targetRotation,
+                    ref _rotationVelocity, RotationSmoothTime);
+
+                // rotate to face input direction relative to camera position
+                transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
+            }
+
+
+            Vector3 targetDirection = Quaternion.Euler(0.0f, _targetRotation, 0.0f) * Vector3.forward;
+
+            // move the player
+            _controller.Move(targetDirection.normalized * (_speed * 5 * Time.deltaTime) +
+                             new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
+
+            // update animator if using character
+            if (_hasAnimator)
+            {
+                _animator.SetFloat(_animIDSpeed, _animationBlend);
+                _animator.SetFloat(_animIDMotionSpeed, inputMagnitude);
+            }
+        }
+
+        public void JumpAndGravity()
         {
             if (Grounded)
             {
@@ -360,6 +435,60 @@ namespace StarterAssets
                 _verticalVelocity += Gravity * Time.deltaTime;
             }
         }
+
+
+        public void mobileJumpAndGravity()
+        {
+            if (Grounded)
+            {
+                _fallTimeoutDelta = FallTimeout;
+                if (_hasAnimator)
+                {
+                    _animator.SetBool(_animIDJump, false);
+                    _animator.SetBool(_animIDFreeFall, false);
+                }
+
+                if (_verticalVelocity < 0.0f)
+                {
+                    _verticalVelocity = -2f;
+                }
+
+                // Jump
+                if (_jumpTimeoutDelta <= 0.0f)
+                {
+                    _verticalVelocity = Mathf.Sqrt(JumpHeight * -2f * Gravity);
+                    if (_hasAnimator)
+                    {
+                        _animator.SetBool(_animIDJump, true);
+                    }
+                }
+
+                if (_jumpTimeoutDelta >= 0.0f)
+                {
+                    _jumpTimeoutDelta -= Time.deltaTime;
+                }
+            }
+            else
+            {
+                _jumpTimeoutDelta = JumpTimeout;
+                if (_fallTimeoutDelta >= 0.0f)
+                {
+                    _fallTimeoutDelta -= Time.deltaTime;
+                }
+                else
+                {
+                    if (_hasAnimator)
+                    {
+                        _animator.SetBool(_animIDFreeFall, true);
+                    }
+                }
+            }
+            if (_verticalVelocity < _terminalVelocity)
+            {
+                _verticalVelocity += Gravity * Time.deltaTime;
+            }
+        }
+
 
         private static float ClampAngle(float lfAngle, float lfMin, float lfMax)
         {

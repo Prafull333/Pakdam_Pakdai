@@ -6,7 +6,7 @@ using UnityEngine;
 public class Timer : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI timerText;
-    int static_Time = 100;
+    int static_Time = 30;
     int time_int;
     
     // Start is called before the first frame update
@@ -14,6 +14,11 @@ public class Timer : MonoBehaviour
     {
         time_int = static_Time;
         InvokeRepeating("PlayTimer", 0, 1);
+    }
+
+    public void StopTimer()
+    {
+        CancelInvoke("PlayTimer");
     }
     
     void PlayTimer()

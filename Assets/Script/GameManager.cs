@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -27,10 +28,28 @@ public class GameManager : MonoBehaviour
     [Header("Player List")]
     public List<GameObject> Players;
     public GameObject raiderPlayer;
+    public GameObject mainPlayer;
 
     [Space(10)]
     [Header("Camera")]
     public CinemachineVirtualCamera playerFollowCamera;
+
+
+    public string firstPlace_PlayerName;
+    public string secondPlace_PlayerName;
+    public string thirdPlace_PlayerName;
+
+    [Space(10)]
+    [Header("UI")]
+    public TextMeshProUGUI Ist_Winner;
+    public TextMeshProUGUI IInd_Winner;
+    public TextMeshProUGUI IIIrd_Winner;
+    public GameObject winScreen;
+    public GameObject gameplayScreen;
+    public GameObject eliminatedScreen;
+    public GameObject mobileScreen;
+
+
 
     private void Awake()
     {
@@ -44,7 +63,20 @@ public class GameManager : MonoBehaviour
         GeneratePlayersForAIMode();
         createRandamRaider();
 
-        SetCrowd();
+       // SetCrowd();
+
+        eliminatedScreen.SetActive(false);
+        winScreen.SetActive(false);
+        gameplayScreen.SetActive(true);
+
+        if(SystemInfo.deviceType != DeviceType.Desktop)
+        {
+            mobileScreen.SetActive(true);
+        }
+        else
+        {
+            mobileScreen.SetActive(false);
+        }
     }
      
 
@@ -53,6 +85,13 @@ public class GameManager : MonoBehaviour
         Players[Random.Range(0, Players.Count)].GetComponent<Player>().createRaiderEvent.Invoke();
 
         Debug.Log(Players.Count);
+    }
+
+    public void setCameraforRandamPlayer()
+    {
+        GameObject p = Players[Random.Range(0, Players.Count)];
+        playerFollowCamera.Follow = p.GetComponent<ThirdPersonController>().CinemachineCameraTarget.transform;
+        playerFollowCamera.LookAt = p.GetComponent<ThirdPersonController>().CinemachineCameraLookAt.transform;
     }
 
     void GeneratePlayersForAIMode()
@@ -78,6 +117,8 @@ public class GameManager : MonoBehaviour
         playerFollowCamera.Follow = p.GetComponent<ThirdPersonController>().CinemachineCameraTarget.transform;
         playerFollowCamera.LookAt = p.GetComponent<ThirdPersonController>().CinemachineCameraLookAt.transform;
         Players.Add(p);
+
+        mainPlayer = p;
     }
 
 
@@ -120,5 +161,43 @@ public class GameManager : MonoBehaviour
 
         Destroy(raiderPlayer,1f);
         createRandamRaider();
+    }
+
+    public void setWinners(string name, int pos)
+    {
+        switch(pos)
+        {
+            case 1: firstPlace_PlayerName = name; break;
+            case 2: secondPlace_PlayerName = name; break;
+            case 3: thirdPlace_PlayerName = name; break;
+        }
+
+        if (pos == 1)
+        {
+            GetComponent<Timer>().StopTimer();
+            Players[0].GetComponent<ThirdPersonController>().enabled = false;
+            Players[0].GetComponent<Player>().enabled = false;
+
+            Ist_Winner.text = firstPlace_PlayerName;
+            IInd_Winner.text = secondPlace_PlayerName;
+            IIIrd_Winner.text = thirdPlace_PlayerName;
+            gameplayScreen.SetActive(false);
+            winScreen.SetActive(true);
+            eliminatedScreen.SetActive(false);
+        }
+
+    }
+
+
+
+
+    public void HomeButtonClick()
+    {
+        SceneManager.LoadScene(0);
+    }
+
+    public void ReplaySceneButtonClick()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }
