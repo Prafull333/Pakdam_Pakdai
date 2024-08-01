@@ -107,6 +107,7 @@ namespace StarterAssets
         internal Animator _animator;
         private StarterAssetsInputs _input;
         private GameObject _mainCamera;
+        public float camera_RotationSpeed = 5f;
 
         private const float _threshold = 0.01f;
 
@@ -181,10 +182,10 @@ namespace StarterAssets
 
         virtual internal void LateUpdate()
         {
-            if(GetComponent<PlayerInput>())
-            {
-                CameraRotation();
-            }
+            //if(GetComponent<PlayerInput>() && SystemInfo.deviceType == DeviceType.Desktop)
+            //{
+            //    CameraRotation();
+            //}
         }
 
         internal void AssignAnimationIDs()
@@ -213,6 +214,7 @@ namespace StarterAssets
 
         private void CameraRotation()
         {
+            Debug.Log(_input.look);
             // if there is an input and camera position is not fixed
             if (_input.look.sqrMagnitude >= _threshold && !LockCameraPosition)
             {
@@ -356,7 +358,7 @@ namespace StarterAssets
             Vector3 targetDirection = Quaternion.Euler(0.0f, _targetRotation, 0.0f) * Vector3.forward;
 
             // move the player
-            _controller.Move(targetDirection.normalized * (_speed * 5 * Time.deltaTime) +
+            _controller.Move(targetDirection.normalized * (_speed  * Time.deltaTime) +
                              new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
 
             // update animator if using character
@@ -364,6 +366,44 @@ namespace StarterAssets
             {
                 _animator.SetFloat(_animIDSpeed, _animationBlend);
                 _animator.SetFloat(_animIDMotionSpeed, inputMagnitude);
+            }
+
+            mobileCameraRotation();
+        }
+
+        private void mobileCameraRotation()
+        {
+            Vector2 startTouch0;
+            Vector2 endTouch0;
+
+            if(Input.touchCount > 0)
+            {
+                Touch touch = Input.GetTouch(0);
+                startTouch0 = touch.position;
+
+                if(touch.phase == UnityEngine.TouchPhase.Moved)
+                {
+                    endTouch0 = touch.position;
+                    Vector2 gap = startTouch0 - endTouch0;
+
+                    if (gap.sqrMagnitude >= _threshold && !LockCameraPosition)
+                    {
+                        //Don't multiply mouse input by Time.deltaTime;
+                        float deltaTimeMultiplier = 1.0f;
+
+                        _cinemachineTargetYaw += gap.x * deltaTimeMultiplier;
+                        _cinemachineTargetPitch += gap.y * deltaTimeMultiplier;
+                    }
+
+                    // clamp our rotations so our values are limited 360 degrees
+                    _cinemachineTargetYaw = ClampAngle(_cinemachineTargetYaw, float.MinValue, float.MaxValue);
+                    _cinemachineTargetPitch = ClampAngle(_cinemachineTargetPitch, BottomClamp, TopClamp);
+
+                    // Cinemachine will follow this target
+                    CinemachineCameraTarget.transform.rotation = Quaternion.Euler(_cinemachineTargetPitch + CameraAngleOverride,
+                        _cinemachineTargetYaw, 0.0f);
+
+                }
             }
         }
 

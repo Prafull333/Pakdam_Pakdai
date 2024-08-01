@@ -97,11 +97,11 @@ public class Player : MonoBehaviour
             return;
         }
         
-        if(GameManager.Instance.playerFollowCamera.Follow == 
-            GetComponent<ThirdPersonController>().CinemachineCameraTarget.transform)
-        {
-            GameManager.Instance.setCameraforRandamPlayer();
-        }
+        //if(GameManager.Instance.playerFollowCamera.Follow == 
+        //    GetComponent<ThirdPersonController>().CinemachineCameraTarget.transform)
+        //{
+        //    GameManager.Instance.setCameraforRandamPlayer();
+        //}
 
 
         if (!GetComponent<AiPlayer>() &&  GameManager.Instance.Players.Count != 1)

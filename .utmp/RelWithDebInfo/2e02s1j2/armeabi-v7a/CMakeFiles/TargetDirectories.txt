@@ -1,0 +1,5 @@
+D:/Game files/Pakdam Pakdai/.utmp/RelWithDebInfo/2e02s1j2/armeabi-v7a/CMakeFiles/edit_cache.dir
+D:/Game files/Pakdam Pakdai/.utmp/RelWithDebInfo/2e02s1j2/armeabi-v7a/CMakeFiles/rebuild_cache.dir
+D:/Game files/Pakdam Pakdai/.utmp/RelWithDebInfo/2e02s1j2/armeabi-v7a/FramePacing/CMakeFiles/swappywrapper.dir
+D:/Game files/Pakdam Pakdai/.utmp/RelWithDebInfo/2e02s1j2/armeabi-v7a/FramePacing/CMakeFiles/edit_cache.dir
+D:/Game files/Pakdam Pakdai/.utmp/RelWithDebInfo/2e02s1j2/armeabi-v7a/FramePacing/CMakeFiles/rebuild_cache.dir

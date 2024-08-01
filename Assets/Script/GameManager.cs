@@ -32,7 +32,7 @@ public class GameManager : MonoBehaviour
 
     [Space(10)]
     [Header("Camera")]
-    public CinemachineVirtualCamera playerFollowCamera;
+    public CinemachineFreeLook playerFollowCamera;
 
 
     public string firstPlace_PlayerName;
@@ -155,6 +155,12 @@ public class GameManager : MonoBehaviour
                     p.GetComponent<AiPlayer>().nearestPlayerDistance = Mathf.Infinity;
                 }
             }
+        }
+
+        if (playerFollowCamera.Follow ==
+          raiderPlayer.GetComponent<ThirdPersonController>().CinemachineCameraTarget.transform)
+        {
+           setCameraforRandamPlayer();
         }
 
         raiderPlayer.SetActive(false);

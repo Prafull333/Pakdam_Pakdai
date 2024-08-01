@@ -92,7 +92,7 @@ public class AiPlayer : ThirdPersonController
            transform.position.y - targetLocation.y, transform.position.z - targetLocation.z);
         float newAngle = Mathf.Atan2(-offset.x, -offset.z) * Mathf.Rad2Deg;
 
-        transform.rotation = Quaternion.Euler(0, newAngle, 0);
+        transform.rotation = Quaternion.Lerp(transform.rotation,Quaternion.Euler(0, newAngle, 0),1f);
 
         var moveDirection = Quaternion.Euler(0, newAngle, 0f) * Vector3.forward;
         _controller.Move(moveDirection * moveSpeed * Time.deltaTime);
@@ -119,7 +119,7 @@ public class AiPlayer : ThirdPersonController
            transform.position.y - targetLocation.y, transform.position.z - targetLocation.z);
         float newAngle = Mathf.Atan2(-offset.x, -offset.z) * Mathf.Rad2Deg;
 
-        transform.rotation = Quaternion.Euler(0, newAngle, 0);
+        transform.rotation = Quaternion.Lerp(transform.rotation,Quaternion.Euler(0, newAngle, 0),1f);
 
         var moveDirection = Quaternion.Euler(0, newAngle, 0f) * Vector3.forward;
         _controller.Move(moveDirection * moveSpeed * Time.deltaTime);
