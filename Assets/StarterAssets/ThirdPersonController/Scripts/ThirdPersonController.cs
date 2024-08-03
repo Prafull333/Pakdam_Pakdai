@@ -368,7 +368,7 @@ namespace StarterAssets
                 _animator.SetFloat(_animIDMotionSpeed, inputMagnitude);
             }
 
-            mobileCameraRotation();
+           // mobileCameraRotation();
         }
 
         private void mobileCameraRotation()

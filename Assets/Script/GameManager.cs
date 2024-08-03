@@ -48,8 +48,7 @@ public class GameManager : MonoBehaviour
     public GameObject gameplayScreen;
     public GameObject eliminatedScreen;
     public GameObject mobileScreen;
-
-
+    public TextMeshProUGUI rewardText;
 
     private void Awake()
     {
@@ -68,6 +67,7 @@ public class GameManager : MonoBehaviour
         eliminatedScreen.SetActive(false);
         winScreen.SetActive(false);
         gameplayScreen.SetActive(true);
+        rewardText.gameObject.SetActive(false);
 
         if(SystemInfo.deviceType != DeviceType.Desktop)
         {
@@ -165,6 +165,45 @@ public class GameManager : MonoBehaviour
 
         raiderPlayer.SetActive(false);
 
+
+        if(raiderPlayer == mainPlayer)
+        {
+            rewardText.gameObject.SetActive(true);
+
+            if (Players.Count != 1)
+            {
+                GameManager.Instance.eliminatedScreen.gameObject.SetActive(true);
+            }
+
+            rewardText.color = Color.green;
+
+            switch(Players.Count)
+            {
+                case 1: 
+                    {
+                        int winAount = data.bet * 3;
+                        rewardText.text = $"You Win : {(winAount)}";
+                        data.avalableGaneshCoin += winAount;
+                    }  break;
+
+                case 2:
+                    {
+                        int winAount = data.bet * 2;
+                        rewardText.text = $"You Win : {winAount}";
+                        data.avalableGaneshCoin += winAount;
+                    } break;
+
+                default:
+                    {
+                        rewardText.text = $"You Loss";
+                        rewardText.color = Color.red;
+                    }
+                    break;
+            }
+
+
+        }
+
         Destroy(raiderPlayer,1f);
         createRandamRaider();
     }
@@ -190,6 +229,15 @@ public class GameManager : MonoBehaviour
             gameplayScreen.SetActive(false);
             winScreen.SetActive(true);
             eliminatedScreen.SetActive(false);
+        }
+
+        if(mainPlayer != null && Players.Count == 1 && Players[0] == mainPlayer)
+        {
+            rewardText.color = Color.green;
+            rewardText.gameObject.SetActive(true);
+            int winAount = data.bet * 4;
+            rewardText.text = $"You Win : {winAount}";
+            data.avalableGaneshCoin += winAount;
         }
 
     }

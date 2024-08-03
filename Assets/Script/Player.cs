@@ -104,9 +104,5 @@ public class Player : MonoBehaviour
         //}
 
 
-        if (!GetComponent<AiPlayer>() &&  GameManager.Instance.Players.Count != 1)
-        {
-           GameManager.Instance.eliminatedScreen.gameObject.SetActive(true);
-        }
     }
 }

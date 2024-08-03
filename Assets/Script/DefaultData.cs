@@ -18,4 +18,7 @@ public class DefaultData : ScriptableObject
     public int avalableGaneshCoin = 0;
 
     public int selectedSceneIndex = 1;
+
+
+    public int bet;
 }
